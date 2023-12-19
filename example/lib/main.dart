@@ -9,11 +9,11 @@ Licensing: More information can be found here: https://github.com/akshathjain/sl
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 void main() => runApp(SlidingUpPanelExample());
@@ -69,7 +69,21 @@ class _HomePageState extends State<HomePage> {
             minHeight: _panelHeightClosed,
             parallaxEnabled: true,
             parallaxOffset: .5,
+            slideDirection: SlideDirection.DOWN,
+            header: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 30,
+                  height: 5,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                ),
+              ],
+            ),
             body: _body(),
+            pa
             panelBuilder: (sc) => _panel(sc),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(18.0),
@@ -106,24 +120,24 @@ class _HomePageState extends State<HomePage> {
                       )))),
 
           //the SlidingUpPanel Title
-          Positioned(
-            top: 52.0,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
-              child: Text(
-                "SlidingUpPanel Example",
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24.0),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
-                ],
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 52.0,
+          //   child: Container(
+          //     padding: const EdgeInsets.fromLTRB(24.0, 18.0, 24.0, 18.0),
+          //     child: Text(
+          //       "SlidingUpPanel Example",
+          //       style: TextStyle(fontWeight: FontWeight.w500),
+          //     ),
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(24.0),
+          //       boxShadow: [
+          //         BoxShadow(
+          //             color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 16.0)
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -138,18 +152,6 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             SizedBox(
               height: 12.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 30,
-                  height: 5,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                ),
-              ],
             ),
             SizedBox(
               height: 18.0,
@@ -273,22 +275,22 @@ class _HomePageState extends State<HomePage> {
   Widget _body() {
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(40.441589, -80.010948),
-        zoom: 13,
+        initialCenter: LatLng(40.441589, -80.010948),
+        initialZoom: 13,
         maxZoom: 15,
       ),
-      layers: [
-        TileLayerOptions(
-            urlTemplate: "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"),
-        MarkerLayerOptions(markers: [
+      children: [
+        // openStreetMapTileLayer,
+        MarkerLayer(markers: [
           Marker(
-              point: LatLng(40.441753, -80.011476),
-              builder: (ctx) => Icon(
-                    Icons.location_on,
-                    color: Colors.blue,
-                    size: 48.0,
-                  ),
-              height: 60),
+            point: LatLng(40.441753, -80.011476),
+            child: Icon(
+              Icons.location_on,
+              color: Colors.blue,
+              size: 48.0,
+            ),
+            height: 60,
+          ),
         ]),
       ],
     );

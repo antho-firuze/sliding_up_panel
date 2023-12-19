@@ -354,7 +354,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
 
                       // header
                       widget.header != null
-                          ? Positioned(
+                          ? Positioned.fill(
                               top: widget.slideDirection == SlideDirection.UP
                                   ? 0.0
                                   : null,
@@ -368,7 +368,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
 
                       // footer
                       widget.footer != null
-                          ? Positioned(
+                          ? Positioned.fill(
                               top: widget.slideDirection == SlideDirection.UP
                                   ? null
                                   : 0.0,
